@@ -1,56 +1,49 @@
 <template>
-<body>
-    <p>
-        <a @click="prev">Previous</a> || <a @click="next">Next</a>
-    </p>
-    <div 
-        v-for="number in [currentNumber]" transition="fade">
-    <img :src="images[Math.abs(currentNumber) % images.length]"/>
-    </div>
-</body>
-
+  <v-carousel>
+    <v-carousel-item
+      v-for="(item,i) in items"
+      v-bind:key="i"
+      v-bind:src="item.src"
+      transition="fade"
+      reverseTransition="fade">
+    </v-carousel-item>
+  </v-carousel>
 </template>
 
 
 <script>
-    export default {
-      el: 'body',
-      data: {
-        images: ['./assets/IMG_0175.jpeg', './assets/IMG_0189.jpeg', './assets/IMG_0634.jpeg'],
-        currentNumber: 0,
-        timer: null
-      },
-      ready: function () {
-        this.timer = setInterval(this.next, 3000)
-      },
-      methods: {
-        startRotation: function () {
-          this.timer = setInterval(this.next, 3000)
-        },
-        next: function () {
-          this.currentNumber += 1
-        },
-        prev: function () {
-          this.currentNumber -= 1
-        }
+  export default {
+    data () {
+      return {
+        items: [
+          {
+            src: '../assets/IMG_0175.jpeg'
+          },
+          {
+            src: '../assets/IMG_0189.jpeg'
+          },
+          {
+            src: '../assets/IMG_0634.jpeg'
+          }
+        ]
       }
     }
+  }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-    .fade-transition {
-        transition: all 0.8s ease;
-        overflow: hidden;
-        visibility: visible;
-        opacity: 1;
-        position: absolute;
-    }
+<style>
+#carousel-view .fade-enter-active,
+#carousel-view .fade-leave-active,
+#carousel-view .fade-leave-to {
+	transition: 0.3s ease-out;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 
-    .fade-enter, .fade-leave {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-
+#carousel-view .fade-enter,
+#carousel-view .fade-leave,
+#carousel-view .fade-leave-to {
+	opacity: 0;
+}
 </style>

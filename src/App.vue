@@ -2,27 +2,50 @@
   <div id="app">
     <img src="./assets/Happy-Sun.png" class="img-valign">
       <span class="together">Together</span>
-        <div class="hello">
-        <nav v-bind:class="active" v-on:click.prevent>
-        <ul>
-          <li><router-link to = "/" class="home" v-on:click="makeActive('home')">Home</router-link></li>
-          <li><router-link to = "/about" class="about" v-on:click="makeActive('about')">About</router-link></li>
-          <li><router-link to = "/travel" class="travel" v-on:click="makeActive('travel')">Travel</router-link></li>
-          <li><router-link to = "/transaction" class="transaction" v-on:click="makeActive('transaction')">Transaction</router-link></li>
-          <li><router-link to = "/contact" class="contact" v-on:click="makeActive('contact')">Contact</router-link></li>
-        </ul>
-      </nav>
-      <br>
-    </div>
+      <div class="hello">
+        <nav v-on:click.prevent>
+          <ul>
+            <li><router-link to = "/" class="home" v-on:click="makeActive('home')">Home</router-link></li>
+            <li><router-link to = "/about" class="about" v-on:click="makeActive('about')">About</router-link></li>
+            <li><router-link to = "/travel" class="travel" v-on:click="makeActive('travel')">Travel</router-link></li>
+            <li><router-link to = "/transaction" class="transaction" v-on:click="makeActive('transaction')">Transaction</router-link></li>
+            <li><router-link to = "/contact" class="contact" v-on:click="makeActive('contact')">Contact</router-link></li>
+          </ul>
+        </nav>
+        <br>
+      </div>
     <router-view/>
+    <div>
+      <v-card height="200px">
+      <div class="headline text-xs-center pa-5">Active: {{ e1 }}</div>
+      <v-bottom-nav absolute :value="true" :active.sync="e1" class="transparent">
+        <v-btn flat color="teal" value="recent">
+          <span>Recent</span>
+          <v-icon>history</v-icon>
+        </v-btn>
+        <v-btn flat color="teal" value="favorites">
+          <span>Favorites</span>
+          <v-icon>favorite</v-icon>
+        </v-btn>
+        <v-btn flat color="teal" value="nearby">
+          <span>Nearby</span>
+          <v-icon>place</v-icon>
+        </v-btn>
+      </v-bottom-nav>
+    </v-card>
+    </div>
   </div>
-
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  export default {
+    name: 'app',
+    data () {
+      return {
+        e1: 'recent'
+      }
+    }
+  }
 </script>
 
 <style scoped>
@@ -53,7 +76,7 @@ export default {
 
   .img-valign {
     vertical-align: middle;
-    margin-bottom: 6.0em;
+    margin-bottom: 7.0em;
   }
 
   .together {
