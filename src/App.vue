@@ -15,9 +15,9 @@
         <br>
       </div>
     <router-view/>
-    <div>
-      <v-card height="200px">
-      <div class="headline text-xs-center pa-5">Active: {{ e1 }}</div>
+    <div style = "height: 100%; width=100%">
+      <v-card style = "height: 100%; width=100%" active-class="box1">
+      <div class="bot-nav"></div>
       <v-bottom-nav absolute :value="true" :active.sync="e1" class="transparent">
         <v-btn flat color="teal" value="recent">
           <span>Recent</span>
@@ -56,17 +56,9 @@
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  height:100%;
+  margin:0;
 }
-
-  h1, h2 {
-    font-weight: bold;
-    font-size: 50px;
-  }
-
-  p1 {
-    font-weight: normal;
-    font-size: 25px;
-  }
 
   li {
     display: inline-block;
@@ -91,6 +83,12 @@
     margin-top: -85px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
     background-color: #7FFACD;
+  }
+
+  .transparent{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
 
   .home {
@@ -187,6 +185,4 @@
     border-bottom: 4px solid white;
     padding: 6px 0;
   }  
-
-  {box-sizing:border-box}
 </style>  
