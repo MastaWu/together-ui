@@ -1,54 +1,92 @@
 <template>
-  <div id="app">
-    <img src="./assets/Happy-Sun.png" class="img-valign">
-      <span class="together">Together</span>
-      <div class="hello">
-        <nav v-on:click.prevent>
-          <ul>
-            <li><router-link to = "/" class="home" v-on:click="makeActive('home')">Home</router-link></li>
-            <li><router-link to = "/about" class="about" v-on:click="makeActive('about')">About</router-link></li>
-            <li><router-link to = "/travel" class="travel" v-on:click="makeActive('travel')">Travel</router-link></li>
-            <li><router-link to = "/transaction" class="transaction" v-on:click="makeActive('transaction')">Transaction</router-link></li>
-            <li><router-link to = "/contact" class="contact" v-on:click="makeActive('contact')">Contact</router-link></li>
-          </ul>
-        </nav>
-        <br>
-      </div>
-    <router-view/>
-    <div style = "height: 100%; width=100%">
-      <v-card style = "height: 100%; width=100%" active-class="box1">
-      <div class="bot-nav"></div>
-      <v-bottom-nav absolute :value="true" :active.sync="e1" class="transparent">
-        <v-btn flat color="teal" value="recent">
-          <span>Recent</span>
-          <v-icon>history</v-icon>
-        </v-btn>
-        <v-btn flat color="teal" value="favorites">
-          <span>Favorites</span>
-          <v-icon>favorite</v-icon>
-        </v-btn>
-        <v-btn flat color="teal" value="nearby">
-          <span>Nearby</span>
-          <v-icon>place</v-icon>
-        </v-btn>
-      </v-bottom-nav>
-    </v-card>
-    </div>
+  <div class="text-xs-center">
+  <v-app id="inspire">
+    <v-navigation-drawer
+      persistent
+      v-model="drawer"
+      enable-resize-watcher
+      clipped
+      app
+    >
+      <v-list dense>
+        <v-list-tile :to="{path: '/'}">
+          <v-list-tile-content>
+            <v-list-tile-title  class="nav-bar">Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile :to="{path: '/transaction'}">
+          <v-list-tile-content>
+            <v-list-tile-title class="nav-bar">Transaction</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        
+        <v-list-tile :to="{path: '/contact'}">
+          <v-list-tile-content>
+            <v-list-tile-title class="nav-bar">Contact</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+
+    </v-navigation-drawer>
+    <v-toolbar
+      color="green lighten-2"
+      dark
+      fixed
+      app
+      clipped-right
+    >
+      <v-toolbar-side-icon @click.stop="drawer =  !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>Greetings!</v-toolbar-title>
+      <v-spacer></v-spacer>
+        <div class="text-xs-center">
+          <v-badge overlay left color="green accent-1" overlap>
+            <v-icon
+                large
+                color="white"
+              >
+                account_circle
+              </v-icon>
+          </v-badge>
+        </div>
+    </v-menu>
+    </v-toolbar>
+    
+    <main>
+      <v-content>
+        <v-container fluid fill-height>
+          <v-layout justify-center align-center>
+          <router-view></router-view>
+          </v-layout>
+        </v-container>
+      </v-content>
+    </main>
+    <v-footer color="blue-grey" class="white--text" app>
+      <span>Together</span>
+      <v-spacer></v-spacer>
+      <span>&copy; 2017</span>
+    </v-footer>
+  </v-app>
   </div>
 </template>
 
 <script>
   export default {
     name: 'app',
-    data () {
-      return {
-        e1: 'recent'
-      }
+    data: () => ({
+      drawer: true,
+      drawerRight: true,
+      right: null,
+      left: null,
+      active: ''
+    }),
+    props: {
     }
   }
 </script>
 
 <style scoped>
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -60,129 +98,33 @@
   margin:0;
 }
 
-  li {
-    display: inline-block;
-    margin: 0 10px;
-    font-weight: bold;
+.nav-bar   {
+  text-decoration:  none;
+  font-weight:      bold;
+  color:            black;
+  font-size:        20px;
   }
 
-  .img-valign {
-    vertical-align: middle;
-    margin-bottom: 7.0em;
-  }
-
-  .together {
-    font-size: 125px;
-    font-weight: bold;
-    }
-
-  nav {
-    line-height: 70px;
-    font-size: 25px;
-    font-weight: normal;
-    margin-top: -85px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    background-color: #7FFACD;
-  }
-
-  .transparent{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-
-  .home {
-    transition: 0.3s ease;
-    background-color: #7FFACD;
-    font-size: 20px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    border-top: 4px solid #7FFACD;
-    border-bottom: 4px solid #7FFACD;
-    padding: 20px 0;
-    margin: 0 20px;
-    color: white;
-  }
-
-  .home:hover {
-    border-top: 4px solid white;
-    border-bottom: 4px solid white;
-    padding: 6px 0;
-  }
-
-  .about {
-    transition: 0.3s ease;
-    background-color: #7FFACD;
-    font-size: 20px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    border-top: 4px solid #7FFACD;
-    border-bottom: 4px solid #7FFACD;
-    padding: 20px 0;
-    margin: 0 20px;
-    color: white;
-  }
-
-  .about:hover {
-    border-top: 4px solid white;
-    border-bottom: 4px solid white;
-    padding: 6px 0;
-  }  
-
-  .travel {
-    transition: 0.3s ease;
-    background-color: #7FFACD;
-    font-size: 20px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    border-top: 4px solid #7FFACD;
-    border-bottom: 4px solid #7FFACD;
-    padding: 20px 0;
-    margin: 0 20px;
-    color: white;
-  }
-
-  .travel:hover {
-    border-top: 4px solid white;
-    border-bottom: 4px solid white;
-    padding: 6px 0;
-  }  
-
-  .transaction {
-    transition: 0.3s ease;
-    background-color: #7FFACD;
-    font-size: 20px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    border-top: 4px solid #7FFACD;
-    border-bottom: 4px solid #7FFACD;
-    padding: 20px 0;
-    margin: 0 20px;
-    color: white;
-  }
-
-  .transaction:hover {
-    border-top: 4px solid white;
-    border-bottom: 4px solid white;
-    padding: 6px 0;
-  }  
+a:visited {
+  /* Applies to all visited links */
+  text-decoration:  none;
+  font-weight:      bold;
+  color:            black;
+  } 
   
-  .contact {
-    transition: 0.3s ease;
-    background-color: #7FFACD;
-    font-size: 20px;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    border-top: 4px solid #7FFACD;
-    border-bottom: 4px solid #7FFACD;
-    padding: 20px 0;
-    margin: 0 20px;
-    color: white;
-  }
+a:hover   {
+  /* Applies to links under the pointer */
+  text-decoration:  none;
+  font-weight:      bold;
+  color:            white;
+  background-color: #9ACD32;
+  } 
+  
+a:active  {
+  /* Applies to activated links */
+  text-decoration:  none;
+  font-weight:      bold;
+  color:            white;
+  } 
 
-  .contact:hover {
-    border-top: 4px solid white;
-    border-bottom: 4px solid white;
-    padding: 6px 0;
-  }  
-</style>  
+</style>
